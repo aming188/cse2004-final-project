@@ -1,3 +1,5 @@
+import Image from "next/image";
+import popcorn from "@/images/popcorn.jpg";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -5,7 +7,17 @@ export default function Home() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <h1 className={styles.title}>NextWatch</h1>
+          <div className={styles.titleRow}>
+            <Image
+              src={popcorn}
+              alt="NextWatch logo"
+              className={styles.logo}
+              width={44}
+              height={44}
+              priority
+            />
+            <h1 className={styles.title}>NextWatch</h1>
+          </div>
           <p className={styles.description}>
             No more endless searching. Just great movies, found instantly.
           </p>

@@ -18,6 +18,18 @@
   gap: 6px;
 }
 
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
 .title {
   font-size: 28px;
   font-weight: 700;
