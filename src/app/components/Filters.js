@@ -114,6 +114,11 @@ export default function Filters() {
           ))}
         </div>
       </section>
+
+      {/* This will be used to trigger the Movie API */}
+      <button type="button" className={styles.applyButton}>
+        Apply Filters
+      </button>
     </aside>
   );
 }

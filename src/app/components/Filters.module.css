@@ -80,6 +80,28 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
+.applyButton {
+  margin-top: 8px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-radius: 25px;
+  border: none;
+  background: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.05s ease;
+}
+
+.applyButton:hover {
+  opacity: 0.85;
+}
+
+.applyButton:active {
+  transform: translateY(1px);
+}
+
 @media (prefers-color-scheme: dark) {
   .sidebar {
     border-right-color: rgba(255, 255, 255, 0.1);
