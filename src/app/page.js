@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import popcorn from "@/images/popcorn.jpg";
 import Filters from "./components/Filters";

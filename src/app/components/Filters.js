@@ -24,15 +24,39 @@ const MOODS = [
 
 const YEARS = Array.from({ length: 2025 - 1950 + 1 }, (_, i) => 2025 - i);
 
-export default function Filters() {
+export default function Filters({ onResults }) {
   const [genre, setGenre] = useState("");
   const [yearFrom, setYearFrom] = useState("");
   const [yearTo, setYearTo] = useState("");
   const [runtime, setRuntime] = useState("any");
   const [mood, setMood] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fromYears = YEARS.filter((y) => !yearTo || y <= Number(yearTo));
   const toYears = YEARS.filter((y) => !yearFrom || y >= Number(yearFrom));
+
+  const handleApply = async () => {
+    setIsLoading(true);
+
+    const params = new URLSearchParams();
+    if (genre) params.set("genre", genre);
+    if (yearFrom) params.set("yearFrom", yearFrom);
+    if (yearTo) params.set("yearTo", yearTo);
+    if (runtime && runtime !== "any") params.set("runtime", runtime);
+
+    try {
+      const res = await fetch(`/api/endpoint?${params.toString()}`);
+      const data = await res.json();
+      onResults?.({
+        movies: res.ok ? data.results ?? [] : [],
+        error: res.ok ? null : data.error || `Request failed (${res.status})`,
+      });
+    } catch (err) {
+      onResults?.({ movies: [], error: err.message });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <aside className={styles.sidebar}>
@@ -115,9 +139,14 @@ export default function Filters() {
         </div>
       </section>
 
-      {/* This will be used to trigger the Movie API */}
-      <button type="button" className={styles.applyButton}>
-        Apply Filters
+      {/* Triggers the Movie API */}
+      <button
+        type="button"
+        className={styles.applyButton}
+        onClick={handleApply}
+        disabled={isLoading}
+      >
+        {isLoading ? "Loading…" : "Apply Filters"}
       </button>
     </aside>
   );
