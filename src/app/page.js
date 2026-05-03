@@ -1,5 +1,6 @@
 import Image from "next/image";
 import popcorn from "@/images/popcorn.jpg";
+import Filters from "./components/Filters";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -23,6 +24,10 @@ export default function Home() {
           </p>
         </div>
       </header>
+
+      <main className={styles.layout}>
+        <Filters />
+      </main>
     </div>
   );
 }
