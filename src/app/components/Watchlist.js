@@ -1,8 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./Watchlist.module.css";
+import WatchedPopup from "./WatchedPopup";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w154";
 
 export default function Watchlist({ movies = [], onRemove }) {
+  const [ratingFor, setRatingFor] = useState(null);
+
+  const handleSubmitRating = ({ movieId }) => {
+    onRemove?.(movieId);
+    setRatingFor(null);
+  };
+
   return (
     <aside className={styles.watchlist}>
       <div className={styles.headingRow}>
@@ -48,8 +59,8 @@ export default function Watchlist({ movies = [], onRemove }) {
                   <button
                     type="button"
                     className={`${styles.actionButton} ${styles.watchedButton}`}
-                    onClick={() => onRemove?.(movie.id)}
-                    aria-label={`Mark ${movie.title} as watched and remove from watchlist`}
+                    onClick={() => setRatingFor(movie)}
+                    aria-label={`Mark ${movie.title} as watched`}
                   >
                     Watched
                   </button>
@@ -66,6 +77,14 @@ export default function Watchlist({ movies = [], onRemove }) {
             );
           })}
         </ul>
+      )}
+
+      {ratingFor && (
+        <WatchedPopup
+          movie={ratingFor}
+          onClose={() => setRatingFor(null)}
+          onSubmit={handleSubmitRating}
+        />
       )}
     </aside>
   );
