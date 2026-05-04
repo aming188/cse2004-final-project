@@ -5,11 +5,13 @@ import Image from "next/image";
 import popcorn from "@/images/popcorn.jpg";
 import Filters from "./components/Filters";
 import MovieGrid from "./components/MovieGrid";
+import MovieDetails from "./components/MovieDetails";
 import styles from "./page.module.css";
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   const handleResults = ({ movies, error }) => {
     setMovies(movies);
@@ -39,8 +41,19 @@ export default function Home() {
 
       <main className={styles.layout}>
         <Filters onResults={handleResults} />
-        <MovieGrid movies={movies} error={error} />
+        <MovieGrid
+          movies={movies}
+          error={error}
+          onSelectMovie={setSelectedMovie}
+        />
       </main>
+
+      {selectedMovie && (
+        <MovieDetails
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
     </div>
   );
 }

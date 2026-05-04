@@ -1,7 +1,7 @@
 import MovieCard from "./MovieCard";
 import styles from "./MovieGrid.module.css";
 
-export default function MovieGrid({ movies = [], error }) {
+export default function MovieGrid({ movies = [], error, onSelectMovie }) {
   if (error) {
     return <p className={styles.message}>{error}</p>;
   }
@@ -13,7 +13,7 @@ export default function MovieGrid({ movies = [], error }) {
   return (
     <div className={styles.grid}>
       {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+        <MovieCard key={movie.id} movie={movie} onClick={onSelectMovie} />
       ))}
     </div>
   );

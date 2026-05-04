@@ -2,13 +2,24 @@ import styles from "./MovieCard.module.css";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
-export default function MovieCard({ movie }) {
+export default function MovieCard({ movie, onClick }) {
   const posterUrl = movie.poster_path
     ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
     : null;
 
   return (
-    <article className={styles.card}>
+    <article
+      className={styles.card}
+      onClick={() => onClick?.(movie)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.(movie);
+        }
+      }}
+    >
       <div className={styles.posterWrap}>
         {posterUrl ? (
           <img

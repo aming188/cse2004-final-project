@@ -83,5 +83,27 @@ export async function GET(request) {
   }
 
   const data = await res.json();
-  return Response.json(data);
+
+  const tmdbHeaders = {
+    Authorization: `Bearer ${token}`,
+    accept: "application/json",
+  };
+
+  const resWithRuntime = await Promise.all(
+    (data.results ?? []).map(async (movie) => {
+      try {
+        const detailRes = await fetch(
+          `https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,
+          { headers: tmdbHeaders }
+        );
+        if (!detailRes.ok) return movie;
+        const detail = await detailRes.json();
+        return { ...movie, runtime: detail.runtime ?? null };
+      } catch {
+        return movie;
+      }
+    })
+  );
+
+  return Response.json({ ...data, results: resWithRuntime });
 }
