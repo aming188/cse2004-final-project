@@ -33,6 +33,7 @@ This project pulls movie data from [The Movie Database (TMDB)](https://www.themo
 ## Deployment on Vercel + Demo
 
 View the webpage here: https://nextwatch-six.vercel.app/
+
 Watch a short demo here: https://drive.google.com/file/d/14CpboS1B1oCGw3CoWAPR53J54P7pJssD/view?usp=sharing
 
 
