@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# Overview
+
+**NextWatch** is a movie discovery web app that helps you decide what to watch without all of the hassle. Pick from pre-defined filters like genre, release year, runtime, and mood, and the app pulls a curated set of films from [The Movie Database (TMDB)](https://www.themoviedb.org/). Click on any movie to see its description, poster, rating, and runtime, then save it to your personal watchlist.
+
+Once a film is on your watchlist, you can mark it **Watched**, give it a star rating, and flag whether you liked it or not. The app tracks your stats, including how many movies you've liked vs. disliked and your average rating in each category. This can be viewed any time from the **Stats** button in the dashboard.
+
 ## Getting Started
 
 First, run the development server:
@@ -16,21 +22,14 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# TMDB Movie API Key Setup
 
-To learn more about Next.js, take a look at the following resources:
+This section is useful only if you want to run the project locally. If not, please look forward to the next section, which provides the public Vercel URL. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project pulls movie data from [The Movie Database (TMDB)](https://www.themoviedb.org/); you will need a free API token to run it locally. Create an account at themoviedb.org, then go to **Profile → Settings → API** and click **Request an API Key**. Pick the "Developer" option and fill out the short form (you can click "personal" and use WashU address as this is a WashU project). Once completed, copy the **API Read Access Token** and add it to a `.env.local` file in the project root as `TMDB_TOKEN=your_token`. Restart the server and verify the API endpoint is working as expected.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment on Vercel
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Link here
