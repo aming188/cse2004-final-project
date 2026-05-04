@@ -72,6 +72,25 @@ export default function Home() {
     }
   }, [stats]);
 
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/endpoint");
+        const data = await res.json();
+        if (cancelled) return;
+        setMovies(res.ok ? data.results ?? [] : []);
+        setError(res.ok ? null : data.error || `Request failed (${res.status})`);
+      } catch (err) {
+        if (cancelled) return;
+        setError(err.message);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const handleResults = ({ movies, error }) => {
     setMovies(movies);
     setError(error);
