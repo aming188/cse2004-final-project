@@ -30,7 +30,9 @@ This section is useful only if you want to run the project locally. If not, plea
 
 This project pulls movie data from [The Movie Database (TMDB)](https://www.themoviedb.org/); you will need a free API token to run it locally. Create an account at themoviedb.org, then go to **Profile → Settings → API** and click **Request an API Key**. Pick the "Developer" option and fill out the short form (you can click "personal" and use WashU address as this is a WashU project). Once completed, copy the **API Read Access Token** and add it to a `.env.local` file in the project root as `TMDB_TOKEN=your_token`. Restart the server and verify the API endpoint is working as expected.
 
-## Deployment on Vercel
+## Deployment on Vercel + Demo
 
 View the webpage here: https://nextwatch-six.vercel.app/
+Watch a short demo here: https://drive.google.com/file/d/14CpboS1B1oCGw3CoWAPR53J54P7pJssD/view?usp=sharing
+
 
