@@ -7,6 +7,7 @@ import Filters from "./components/Filters";
 import MovieGrid from "./components/MovieGrid";
 import MovieDetails from "./components/MovieDetails";
 import Watchlist from "./components/Watchlist";
+import StatsPopup from "./components/StatsPopup";
 import styles from "./page.module.css";
 
 const WATCHLIST_STORAGE_KEY = "nextwatch:watchlist";
@@ -23,6 +24,7 @@ export default function Home() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [watchlist, setWatchlist] = useState(null);
   const [stats, setStats] = useState(null);
+  const [showStats, setShowStats] = useState(false);
 
   useEffect(() => {
     try {
@@ -142,7 +144,11 @@ export default function Home() {
               />
               <h1 className={styles.title}>NextWatch</h1>
             </div>
-            <button type="button" className={styles.statsButton}>
+            <button
+              type="button"
+              className={styles.statsButton}
+              onClick={() => setShowStats(true)}
+            >
               Stats
             </button>
           </div>
@@ -171,6 +177,14 @@ export default function Home() {
           movie={selectedMovie}
           onClose={() => setSelectedMovie(null)}
           onSave={handleSaveToWatchlist}
+        />
+      )}
+
+      {showStats && (
+        <StatsPopup
+          stats={stats ?? EMPTY_STATS}
+          onClose={() => setShowStats(false)}
+          onReset={() => setStats(EMPTY_STATS)}
         />
       )}
     </div>
