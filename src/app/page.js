@@ -53,6 +53,10 @@ export default function Home() {
     setSelectedMovie(null);
   };
 
+  const handleRemoveFromWatchlist = (movieId) => {
+    setWatchlist((prev) => (prev ?? []).filter((m) => m.id !== movieId));
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -81,7 +85,10 @@ export default function Home() {
           error={error}
           onSelectMovie={setSelectedMovie}
         />
-        <Watchlist movies={watchlist ?? []} />
+        <Watchlist
+          movies={watchlist ?? []}
+          onRemove={handleRemoveFromWatchlist}
+        />
       </main>
 
       {selectedMovie && (

@@ -2,7 +2,7 @@ import styles from "./Watchlist.module.css";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w154";
 
-export default function Watchlist({ movies = [] }) {
+export default function Watchlist({ movies = [], onRemove }) {
   return (
     <aside className={styles.watchlist}>
       <div className={styles.headingRow}>
@@ -43,6 +43,24 @@ export default function Watchlist({ movies = [] }) {
                 <div className={styles.rowText}>
                   <span className={styles.rowTitle}>{movie.title}</span>
                   {year && <span className={styles.rowYear}>{year}</span>}
+                </div>
+                <div className={styles.actions}>
+                  <button
+                    type="button"
+                    className={`${styles.actionButton} ${styles.watchedButton}`}
+                    onClick={() => onRemove?.(movie.id)}
+                    aria-label={`Mark ${movie.title} as watched and remove from watchlist`}
+                  >
+                    Watched
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.actionButton} ${styles.removeButton}`}
+                    onClick={() => onRemove?.(movie.id)}
+                    aria-label={`Remove ${movie.title} from watchlist`}
+                  >
+                    Remove
+                  </button>
                 </div>
               </li>
             );
