@@ -1,21 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import popcorn from "@/images/popcorn.jpg";
 import Filters from "./components/Filters";
 import MovieGrid from "./components/MovieGrid";
 import MovieDetails from "./components/MovieDetails";
+import Watchlist from "./components/Watchlist";
 import styles from "./page.module.css";
+
+const WATCHLIST_STORAGE_KEY = "nextwatch:watchlist";
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [watchlist, setWatchlist] = useState(null);
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(WATCHLIST_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      setWatchlist(Array.isArray(parsed) ? parsed : []);
+    } catch {
+      setWatchlist([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (watchlist === null) return;
+    try {
+      window.localStorage.setItem(
+        WATCHLIST_STORAGE_KEY,
+        JSON.stringify(watchlist)
+      );
+    } catch {
+      console.log("Error setting localStorage item");
+    }
+  }, [watchlist]);
 
   const handleResults = ({ movies, error }) => {
     setMovies(movies);
     setError(error);
+  };
+
+  const handleSaveToWatchlist = (movie) => {
+    setWatchlist((prev) => {
+      const list = prev ?? [];
+      if (list.some((m) => m.id === movie.id)) return list;
+      return [...list, movie];
+    });
+    setSelectedMovie(null);
   };
 
   return (
@@ -46,12 +81,14 @@ export default function Home() {
           error={error}
           onSelectMovie={setSelectedMovie}
         />
+        <Watchlist movies={watchlist ?? []} />
       </main>
 
       {selectedMovie && (
         <MovieDetails
           movie={selectedMovie}
           onClose={() => setSelectedMovie(null)}
+          onSave={handleSaveToWatchlist}
         />
       )}
     </div>

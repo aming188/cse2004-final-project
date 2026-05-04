@@ -13,7 +13,7 @@ const formatRuntime = (mins) => {
   }
 };
 
-export default function MovieDetails({ movie, onClose }) {
+export default function MovieDetails({ movie, onClose, onSave }) {
   if (!movie) return null;
 
   const posterUrl = movie.poster_path
@@ -74,7 +74,11 @@ export default function MovieDetails({ movie, onClose }) {
           <button type="button" className={styles.backButton} onClick={onClose}>
             Back
           </button>
-          <button type="button" className={styles.saveButton}>
+          <button
+            type="button"
+            className={styles.saveButton}
+            onClick={() => onSave?.(movie)}
+          >
             Save
           </button>
         </div>
