@@ -6,11 +6,11 @@ import WatchedPopup from "./WatchedPopup";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w154";
 
-export default function Watchlist({ movies = [], onRemove }) {
+export default function Watchlist({ movies = [], onRemove, onMarkWatched }) {
   const [ratingFor, setRatingFor] = useState(null);
 
-  const handleSubmitRating = ({ movieId }) => {
-    onRemove?.(movieId);
+  const handleSubmitRating = ({ movieId, liked, rating }) => {
+    onMarkWatched?.({ movieId, liked, rating });
     setRatingFor(null);
   };
 

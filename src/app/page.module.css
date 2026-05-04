@@ -20,10 +20,38 @@
   gap: 6px;
 }
 
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .titleRow {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.statsButton {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 22px;
+  border: 1px solid var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.05s ease;
+}
+
+.statsButton:hover {
+  opacity: 0.85;
+}
+
+.statsButton:active {
+  transform: translateY(1px);
 }
 
 .logo {
