@@ -38,6 +38,7 @@ export default function Filters({ onResults }) {
   const handleApply = async () => {
     setIsLoading(true);
 
+    // https://dev.to/sanjampreetsingh/simplifying-api-calls-with-urlsearchparams-and-fetch-8gn
     const params = new URLSearchParams();
     if (genre) params.set("genre", genre);
     if (yearFrom) params.set("yearFrom", yearFrom);

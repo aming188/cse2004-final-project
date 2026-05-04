@@ -1,11 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import popcorn from "@/images/popcorn.jpg";
 import Filters from "./components/Filters";
+import MovieGrid from "./components/MovieGrid";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+
+  const handleResults = ({ movies, error }) => {
+    setMovies(movies);
+    setError(error);
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -28,7 +38,8 @@ export default function Home() {
       </header>
 
       <main className={styles.layout}>
-        <Filters />
+        <Filters onResults={handleResults} />
+        <MovieGrid movies={movies} error={error} />
       </main>
     </div>
   );
