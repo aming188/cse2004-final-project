@@ -24,6 +24,19 @@ const RUNTIME_RANGES = {
   gt150: { gte: 151 },
 };
 
+// keywords within TMDB movies that are related to the given moods
+const MOOD_KEYWORDS = {
+  Cozy: "326774|326004|9914|308158|295282|279521|209972|325679",
+  Intense: "321464|288394|10481|12565|316362|318868|227945|325425",
+  Funny: "371028|320420|8201|322268|328540|319397",
+  Romantic: "324429|9840|244886|9673",
+  "Mind-bending": "362567|3307|272553|14779|10854|232997",
+  Heartwarming:
+    "319357|194088|329716|304995|334465|335803|265537|319319|281585|325824|334685|367611",
+  Dark: "259094|10123|286125|230747|340566|322255|210162|243026",
+  Adventurous: "322942|207372|189092|4759|1963|1454",
+};
+
 export async function GET(request) {
   const token = process.env.TMDB_TOKEN;
 
@@ -39,6 +52,7 @@ export async function GET(request) {
   const yearFrom = searchParams.get("yearFrom");
   const yearTo = searchParams.get("yearTo");
   const runtime = searchParams.get("runtime");
+  const mood = searchParams.get("mood");
 
   const tmdbParams = new URLSearchParams({
     language: "en-US",
@@ -56,6 +70,10 @@ export async function GET(request) {
   }
   if (yearTo) {
     tmdbParams.set("primary_release_date.lte", `${yearTo}-12-31`);
+  }
+
+  if (mood && MOOD_KEYWORDS[mood]) {
+    tmdbParams.set("with_keywords", MOOD_KEYWORDS[mood]);
   }
 
   const runtimeRange = RUNTIME_RANGES[runtime];

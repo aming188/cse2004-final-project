@@ -44,6 +44,7 @@ export default function Filters({ onResults }) {
     if (yearFrom) params.set("yearFrom", yearFrom);
     if (yearTo) params.set("yearTo", yearTo);
     if (runtime && runtime !== "any") params.set("runtime", runtime);
+    if (mood) params.set("mood", mood);
 
     try {
       const res = await fetch(`/api/endpoint?${params.toString()}`);
